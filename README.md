@@ -1,12 +1,14 @@
-﻿# Run CARLA 0.9.9 on Google Cloud Platform
+# Run CARLA 0.9.9 on Google Cloud Platform
 The following are steps to setup a virtual instance on GCP to run CARLA 0.9.9.
 
 ## Create a VM instance
 Select a n1-standard-4 instance and add a NVIDIA GPU as shown in the image below. Add  at least a 100GB boot disk with Ubuntu 18.04.
+
 ![Step One](/images/step1.png)
 
 ## Network Tag
 Add a network tag which will be used to setup firewall rules for the instance. We need to allow ingress on port 4000 for the desktop server (NoMachine). Leave other settings as default and click on “Create” to create the instance.
+
 ![Step Two](/images/step2.png)
 
 ## Firewall Rules
@@ -24,6 +26,7 @@ curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_6
 sudo dpkg -i cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
 sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
 ```
+```
 sudo apt update
 sudo apt install cuda
 ```
@@ -37,9 +40,12 @@ sudo dpkg -i nomachine_6.11.2_1_amd64.deb
 ```
 ## Install Desktop Client
 Download and install the NoMachine client [here](https://www.nomachine.com/)
+
 ## Optional Password
 Setup an optional password for the default user: `sudo passwd ubuntu`
+
 **From this point, make sure every command is run in the as the default ubuntu user**
+
 ## Server GUI
 Install a GUI on the vm instance since it doesn’t have one by default. We will use the Ubuntu desktop.
 ```
@@ -54,24 +60,26 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 92635A407F7A020C s
 sudo apt-get update
 sudo apt-get install carla-simulator
  ```
-##Install Anaconda
+
+## Install Anaconda
 ```
 cd /tmp
 curl -O https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
 bash Anaconda3-2020.02-Linux-x86_64.sh
 source ~/.bashrc
 ```
-## Create a conda environment for CARLA
+## Create a Conda Environment for CARLA
 ```
 cd ~
 conda create -n carla python=3.7
 source activate carla
 ```
-## Install other dependencies
+## Install Other Dependencies
 ```
 pip install pygame numpy
 ```
-## We need to fix something here before we proceed. Navigate to 
+## We Need to Fix Something Before We Proceed
+Navigate to 
 ```
 cd /opt/carla-simulator/PythonAPI/carla/dist
 ```
@@ -89,16 +97,20 @@ pip install -e /opt/carla-simulator/PythonAPI/carla/dist/carla-0.9.9-py3.7-linux
 ```
 To confirm that everything is fine up to this point, open a terminal and run `python` then try doing `import carla`, if everything works then you can proceed.
 
-## Reboot and Make a Connection from NoMachine client
-``` sudo reboot ```
+## Reboot and Make a Connection from NoMachine Client
+``` 
+sudo reboot 
+```
 Open the NoMachine client and initiate a connection to the instance using its external IP address. Leave every other setting as default.
+
 ![NoMachine Client](/images/step4.png)
+
 When you are prompted for username and password, use that of the default ubuntu account. Username: `ubuntu`, password: `your_password`
 
 At this point everything is set, we can now start the CARLA server and run an example simulation.
 
 ## Run CARLA Server
- Open Ununtu terminal and type in the code:
+Open Ununtu terminal and type in the code:
 ```
 cd /opt/carla-simulator/bin
 SDL_VIDEODRIVER=offscreen ./CarlaUE4.sh
@@ -110,4 +122,7 @@ cd /opt/carla-simulator/PythonAPI/examples
 python manual_control.py
 ```
 You should see something like below
+
 ![CARLA Simulator](/images/step5.png)
+
+# Congratulations! You can now begin to run your simulations.
