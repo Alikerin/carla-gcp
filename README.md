@@ -13,10 +13,10 @@ Add a network tag which will be used to setup firewall rules for the instance. W
 
 ## Firewall Rules
 Navigate to Networking → VPC Network → Firewall to define a firewall rule for the instance. Click on “Create Firewall Rule” and fill in the following, leaving the rest as default
-	* Name: `allow-carla`
-	* Target Tags: `carla` the same tag we used for the vm instance 
-	* Source IP ranges: use the IP address of the client PC that will run the NoMachine client if its available, else use `0.0.0.0/0` to accept traffic from any IP.
-	* Protocols and Ports: Select `tcp` and provide `4000` as the port number
+- Name: `allow-carla`
+- Target Tags: `carla` the same tag we used for the vm instance 
+- Source IP ranges: use the IP address of the client PC that will run the NoMachine client if its available, else use `0.0.0.0/0` to accept traffic from any IP.
+- Protocols and Ports: Select `tcp` and provide `4000` as the port number
 After creating the firewall rule it should appear in the list of firewall rules
 
 ## Install Cuda Driver
